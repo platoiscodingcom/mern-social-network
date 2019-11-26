@@ -6,7 +6,7 @@ const db = config.get('mongoURI');
 const app = express();
 
 //connect to DB
-mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true })
+mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true, useCreateIndex: true })
   .then(() => {
     console.log(`connecting to database: ${db}`)
   })
@@ -15,6 +15,10 @@ mongoose.connect(db, { useNewUrlParser: true, useFindAndModify: false, useUnifie
     console.log('Terminating application...')
     process.exit()
   })
+
+//init Middleware
+app.use(express.json({extended: false}));
+
 
 app.get('/', (req, res) => res.send('API Running'));
 
